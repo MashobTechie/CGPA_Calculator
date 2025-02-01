@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeProvider";
+
 const CourseList = ({ courses, removeCourse }) => {
+    const { theme } = useContext(ThemeContext);
+
     return (
         <div className="mt-4">
             {/* ✅ Desktop View - Table */}
             <div className="hidden md:block overflow-x-auto">
-                <table className="w-full border-collapse border border-gray-300 text-sm md:text-base">
+                <table className={`w-full border-collapse text-sm md:text-base transition-all
+                    ${theme === "dark" ? "border border-gray-700 text-white" : "border border-gray-300 text-black"}`}>
                     <thead>
-                        <tr className="bg-gray-100 text-center">
+                        <tr className={`${theme === "dark" ? "bg-gray-800" : "bg-gray-100"} text-center`}>
                             <th className="border p-2">Course</th>
                             <th className="border p-2">Marks</th>
                             <th className="border p-2">Grade</th>
@@ -24,7 +30,8 @@ const CourseList = ({ courses, removeCourse }) => {
                                 <td className="border p-2">
                                     <button 
                                         onClick={() => removeCourse(index)} 
-                                        className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                                        className={`px-2 py-1 rounded text-white transition-all 
+                                            ${theme === "dark" ? "bg-red-600 hover:bg-red-700" : "bg-red-500 hover:bg-red-600"}`}
                                     >
                                         Remove
                                     </button>
@@ -38,18 +45,21 @@ const CourseList = ({ courses, removeCourse }) => {
             {/* ✅ Mobile View - Stackable Cards */}
             <div className="md:hidden space-y-4">
                 {courses.map((course, index) => (
-                    <div key={index} className="bg-white p-4 rounded-lg shadow flex flex-col gap-2">
+                    <div key={index} 
+                         className={`p-4 rounded-lg shadow flex flex-col gap-2 transition-all
+                         ${theme === "dark" ? "bg-[#1e1e2e] text-white border border-gray-700" : "bg-white text-black border border-gray-300"}`}>
                         <div className="flex justify-between">
                             <span className="font-bold">{course.course}</span>
-                            <span className="text-gray-600">Marks: {course.marks}</span>
+                            <span className="text-gray-300">Marks: {course.marks}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-gray-600">Grade: {course.grade}</span>
-                            <span className="text-gray-600">Units: {course.unit}</span>
+                            <span className="text-gray-300">Grade: {course.grade}</span>
+                            <span className="text-gray-300">Units: {course.unit}</span>
                         </div>
                         <button 
                             onClick={() => removeCourse(index)} 
-                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 mt-2"
+                            className={`px-3 py-1 rounded text-white mt-2 transition-all 
+                                ${theme === "dark" ? "bg-red-600 hover:bg-red-700" : "bg-red-500 hover:bg-red-600"}`}
                         >
                             Remove
                         </button>

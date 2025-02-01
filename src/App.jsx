@@ -1,18 +1,21 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css';
-import Home from './Pages/Home';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
+import ThemeProvider from "./context/ThemeProvider";
+import Home from "./Pages/Home";
+import "./App.css";
 
-function App() {
-  
+const App = () => {
+    return (
+        <ThemeProvider>
+            <ToastContainer position="top-right" autoClose={5000} hideProgressBar newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+            <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+                <Home />
+            </div>
+        </ThemeProvider>
+    );
+};
 
-  return (
-    <>
-       <Home/>
-    </>
-  )
-}
-
-export default App
+export default App;
